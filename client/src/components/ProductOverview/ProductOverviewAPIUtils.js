@@ -1,10 +1,22 @@
 import axios from 'axios';
 
 export default {
+  getProductAndStyles(id) {
+    return new Promise((resolve, reject) => {
+      axios.get(`http://localhost:3000/products/product_id=${id}`)
+        .then((response) => {
+
+          resolve(response.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
   getProduct(id) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`/api/products/${id}`)
+        .get(`/api/products/${47422}`)
         .then(response => {
           resolve(response.data);
         })
@@ -17,7 +29,7 @@ export default {
   getProductStyles(id) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`/api/products/${id}/styles`)
+        .get(`/api/products/${47422}/styles`)
         .then(response => {
           resolve(response.data);
         })

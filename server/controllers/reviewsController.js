@@ -6,12 +6,13 @@ const upload = multer();
 
 
 const getSortedReviews = (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${req.params.productId}&sort=${req.params.sortMethod}&count=500`, {
+  axios.get(`http://localhost:8080/reviews/${req.params.productId}/${req.params.sortMethod}`, {
     headers: {
       'Authorization': process.env.TOKEN
     }
   })
     .then(response => {
+      console.log('getSortedReviews', response.data);
       res.send(response.data);
     })
     .catch(err => {
@@ -20,18 +21,49 @@ const getSortedReviews = (req, res) => {
 };
 
 const getReviews = (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${req.params.productId}`, {
+  axios.get(`http://localhost:8080/reviews/${req.params.productId}`, {
     headers: {
       'Authorization': process.env.TOKEN
     }
   })
     .then(response => {
+      console.log('getReviews', response.data);
       res.send(response.data);
     })
     .catch(err => {
       console.log(err);
     });
 };
+
+// const getSortedReviews = (req, res) => {
+//   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${req.params.productId}&sort=${req.params.sortMethod}&count=500`, {
+//     headers: {
+//       'Authorization': process.env.TOKEN
+//     }
+//   })
+//     .then(response => {
+//       console.log('getSortedReviews', response.data);
+//       res.send(response.data);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// };
+
+// const getReviews = (req, res) => {
+//   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${req.params.productId}`, {
+//     headers: {
+//       'Authorization': process.env.TOKEN
+//     }
+//   })
+//     .then(response => {
+//       console.log('getReviews', response.data);
+//       res.send(response.data);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// };
 
 const reportReview = (req, res) => {
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${req.params.reviewId}/report`, {}, {

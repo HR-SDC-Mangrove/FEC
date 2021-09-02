@@ -92,6 +92,7 @@ const ProductDetails = ({ data, methods }) => {
 
       <div className='group horizontal gapped'>
         {data?.productStyles.results?.map(style => (
+
           <div className='style-selector-wrapper' key={style.style_id}>
             <div
               className={`style-selector bg-image ${data?.selectedStyle.style_id === style.style_id ? 'selected' : ''}`}

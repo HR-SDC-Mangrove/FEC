@@ -5,13 +5,12 @@ const multer = require('multer');
 const upload = multer();
 
 const getReviews = (req, res) => {
-  axios.get(`http://localhost:8080/reviews/${req.params.productId}/${req.params.sortMethod}`, {
+  axios.get(`http://localhost:8080/reviews/product/${req.params.productId}/${req.params.sortMethod}`, {
     headers: {
       'Authorization': process.env.TOKEN
     }
   })
     .then(response => {
-      console.log('getReviews', response.data);
       res.send(response.data);
     })
     .catch(err => {
@@ -35,7 +34,7 @@ const reportReview = (req, res) => {
 
 const markReviewHelpful = (req, res) => {
   if (req.cookies.helpful === undefined) {
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${req.params.reviewId}/helpful`, {}, {
+    axios.put(`http://localhost:8080/reviews/${req.params.reviewId}/helpful`, {}, {
       headers: {
         'Authorization': process.env.TOKEN
       }
@@ -49,7 +48,7 @@ const markReviewHelpful = (req, res) => {
     if (helpfulClicked.includes(req.params.reviewId)) {
       res.status(304).send('helful already clicked for this review');
     } else {
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${req.params.reviewId}/helpful`, {}, {
+      axios.put(`http://localhost:8080/reviews/${req.params.reviewId}/helpful`, {}, {
         headers: {
           'Authorization': process.env.TOKEN
         }

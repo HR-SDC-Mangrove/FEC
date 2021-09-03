@@ -5,12 +5,6 @@ export default {
     return await axios.get(`/api/reviews/${productId}/${sortMethod}`);
   },
 
-  getProductReviewsMeta: (productId) => {
-    return axios.get(`/api/reviews/${productId}`).then(response => {
-      return response.data;
-    });
-  },
-
   sendHelpful: (reviewId) => {
     return axios.put(`/api/reviews/${reviewId}/helpful`)
       .then(res => {

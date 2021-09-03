@@ -19,7 +19,7 @@ const getReviews = (req, res) => {
 };
 
 const reportReview = (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${req.params.reviewId}/report`, {}, {
+  axios.put(`http://localhost:8080/reviews/${req.params.reviewId}/report`, {}, {
     headers: {
       'Authorization': process.env.TOKEN
     }

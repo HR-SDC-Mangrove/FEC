@@ -1,7 +1,6 @@
 const axios = require('axios');
 
 const getProductAndStyles = (req, res) => {
-  // console.log(req.params.productId)
   axios.get(`http://localhost:3000/products/product_id=${req.params.productId}`)
     .then((response) => {
 
@@ -9,7 +8,12 @@ const getProductAndStyles = (req, res) => {
     })
     .catch(err => {
       // reject(err);
+      consol.elog(err);
     });
+};
+
+module.exports = {
+  getProductAndStyles
 };
 
 // const getProduct = (req, res) => {
@@ -39,9 +43,3 @@ const getProductAndStyles = (req, res) => {
 //       console.error(err);
 //     });
 // };
-
-module.exports = {
-  // getProduct,
-  // getProductStyles,
-  getProductAndStyles
-};

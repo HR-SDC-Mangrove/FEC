@@ -7,7 +7,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get(`/api/products/${id}`)
         .then(response => {
-          // console.log(response)
           resolve(response.data);
         })
         .catch(err => {});

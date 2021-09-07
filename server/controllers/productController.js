@@ -8,7 +8,7 @@ const getProductAndStyles = (req, res) => {
     })
     .catch(err => {
       // reject(err);
-      consol.elog(err);
+      console.log(err);
     });
 };
 

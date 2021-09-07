@@ -25,9 +25,9 @@ export default {
   //   });
   // },
 
-  sendClickData(clickData) {
-    return axios.post('/api/interactions/clickData', clickData);
-  },
+  // sendClickData(clickData) {
+  //   return axios.post('/api/interactions/clickData', clickData);
+  // },
 };
 
 //old routes

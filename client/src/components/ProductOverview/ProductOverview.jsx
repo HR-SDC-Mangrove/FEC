@@ -41,7 +41,6 @@ class ProductOverview extends React.Component {
     await API.getProductAndStyles(this.props.productId)
       .then(response => {
         let defaultStyle = response[1].results.find(result => result['default'] === true);
-        // console.log(response, "🤙")
         this.setState({
           product: response[0],
           productStyles: response[1],

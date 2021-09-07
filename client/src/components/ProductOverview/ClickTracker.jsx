@@ -26,7 +26,7 @@ const ClickTracker = (WrappedComponent, moduleName) => {
       }
 
       if (clickData.element) {
-        API.sendClickData(clickData);
+        // API.sendClickData(clickData);
       }
     }
 

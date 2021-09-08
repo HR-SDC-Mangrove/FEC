@@ -5,7 +5,7 @@ const multer = require('multer');
 const upload = multer();
 
 const getReviews = (req, res) => {
-  axios.get(`http://localhost:8080/reviews/product/${req.params.productId}?sort=${req.params.sortMethod}`, {
+  axios.get(`http://localhost:8080/reviews/product/${req.params.productId}?sort=${req.params.sortMethod}&count=50`, {
     headers: {
       'Authorization': process.env.TOKEN
     }

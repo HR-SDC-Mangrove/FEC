@@ -5,7 +5,7 @@ const multer = require('multer');
 const upload = multer();
 
 const getReviews = (req, res) => {
-  axios.get(`${process.env.URL}/reviews/product/${req.params.productId}?sort=${req.params.sortMethod}&count=50`, {
+  axios.get(`${process.env.REVIEWS_URL}/reviews/product/${req.params.productId}?sort=${req.params.sortMethod}&count=50`, {
     headers: {
       'Authorization': process.env.TOKEN
     }
@@ -19,7 +19,7 @@ const getReviews = (req, res) => {
 };
 
 const reportReview = (req, res) => {
-  axios.put(`${process.env.URL}/reviews/${req.params.reviewId}/report`, {}, {
+  axios.put(`${process.env.REVIEWS_URL}/reviews/${req.params.reviewId}/report`, {}, {
     headers: {
       'Authorization': process.env.TOKEN
     }
@@ -34,7 +34,7 @@ const reportReview = (req, res) => {
 
 const markReviewHelpful = (req, res) => {
   if (req.cookies.helpful === undefined) {
-    axios.put(`${process.env.URL}/reviews/${req.params.reviewId}/helpful`, {}, {
+    axios.put(`${process.env.REVIES_URL}/reviews/${req.params.reviewId}/helpful`, {}, {
       headers: {
         'Authorization': process.env.TOKEN
       }
@@ -48,7 +48,7 @@ const markReviewHelpful = (req, res) => {
     if (helpfulClicked.includes(req.params.reviewId)) {
       res.status(304).send('helful already clicked for this review');
     } else {
-      axios.put(`${process.env.URL}/reviews/${req.params.reviewId}/helpful`, {}, {
+      axios.put(`${process.env.REVIEWS_URL}/reviews/${req.params.reviewId}/helpful`, {}, {
         headers: {
           'Authorization': process.env.TOKEN
         }
@@ -104,7 +104,7 @@ const postNewReview = async (req, res) => {
       data.photos = fileURLs;
     }
 
-    const response = await axios.post(`${process.env.URL}/reviews`, data, headers);
+    const response = await axios.post(`${process.env.REVIEWS_URL}/reviews`, data, headers);
     res.sendStatus(201);
   } catch (error) {
     res.send(error);

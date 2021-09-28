@@ -37,45 +37,30 @@ class ProductOverview extends React.Component {
   }
 
   async componentDidMount() {
-    await API.getProduct(this.props.productId)
+
+    await API.getProductAndStyles(this.props.productId)
       .then(response => {
         this.setState({
           product: response,
-        });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-
-    await API.getProductStyles(this.props.productId)
-      .then(response => {
-        let defaultStyle = response.results.find(result => result['default?'] === true);
-        let skus = map(defaultStyle.skus, (sku, key) => {
-          sku.sku_id = key;
-          return sku;
-        });
-
-        this.setState({
-          productStyles: response,
-          selectedStyle: defaultStyle,
+          productStyles: response.styles,
+          selectedStyle: response.styles.results[0],
           selectedSku: null,
-          images: defaultStyle.photos,
-          currentImageUrl: defaultStyle.photos[0].url,
+          images: response.styles.results[0].photos,
+          currentImageUrl: response.styles.results[0].photos[0].url,
         });
       })
-      .catch(err => {
-        console.error(err);
+      .catch(err=> {
+        console.log(err);
       });
-
-    await API.getReviews(this.props.productId)
-      .then(response => {
-        this.setState({
-          reviews: response,
-        });
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    // await API.getReviews(47421)
+    //   .then(response => {
+    //     this.setState({
+    //       reviews: response,
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.error(err);
+    //   });
   }
 
   onChange(key, val) {
@@ -168,3 +153,39 @@ class ProductOverview extends React.Component {
 
 export default ProductOverview;
 export const tracked = Tracked(ProductOverview, 'ProductOverview');
+
+
+//old routes
+
+// await API.getProduct(this.props.productId)
+//   .then(response => {
+//     console.log(response, "👌")
+//     this.setState({
+//       product: response,
+//     });
+//   })
+//   .catch(err => {
+//     console.error(err);
+//   });
+
+// await API.getProductStyles(this.props.productId)
+//   .then(response => {
+//     console.log(response, "🙏")
+//     let defaultStyle = response.results.find(result => result['default?'] === true);
+//     let skus = map(defaultStyle.skus, (sku, key) => {
+//       sku.sku_id = key;
+//       return sku;
+//     });
+//     console.log(defaultStyle)
+
+//     this.setState({
+//       productStyles: response,
+//       selectedStyle: defaultStyle,
+//       selectedSku: null,
+//       images: defaultStyle.photos,
+//       currentImageUrl: defaultStyle.photos[0].url,
+//     });
+//   })
+//   .catch(err => {
+//     console.error(err);
+//   });

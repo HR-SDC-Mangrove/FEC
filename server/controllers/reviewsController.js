@@ -34,7 +34,7 @@ const reportReview = (req, res) => {
 
 const markReviewHelpful = (req, res) => {
   if (req.cookies.helpful === undefined) {
-    axios.put(`${process.env.REVIES_URL}/reviews/${req.params.reviewId}/helpful`, {}, {
+    axios.put(`${process.env.REVIEWS_URL}/reviews/${req.params.reviewId}/helpful`, {}, {
       headers: {
         'Authorization': process.env.TOKEN
       }

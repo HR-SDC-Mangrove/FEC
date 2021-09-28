@@ -4,23 +4,8 @@ const imgbbUploader = require('imgbb-uploader');
 const multer = require('multer');
 const upload = multer();
 
-
-const getSortedReviews = (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${req.params.productId}&sort=${req.params.sortMethod}&count=500`, {
-    headers: {
-      'Authorization': process.env.TOKEN
-    }
-  })
-    .then(response => {
-      res.send(response.data);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
-
 const getReviews = (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${req.params.productId}`, {
+  axios.get(`${process.env.REVIEWS_URL}/reviews/product/${req.params.productId}?sort=${req.params.sortMethod}&count=50`, {
     headers: {
       'Authorization': process.env.TOKEN
     }
@@ -34,7 +19,7 @@ const getReviews = (req, res) => {
 };
 
 const reportReview = (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${req.params.reviewId}/report`, {}, {
+  axios.put(`${process.env.REVIEWS_URL}/reviews/${req.params.reviewId}/report`, {}, {
     headers: {
       'Authorization': process.env.TOKEN
     }
@@ -49,7 +34,7 @@ const reportReview = (req, res) => {
 
 const markReviewHelpful = (req, res) => {
   if (req.cookies.helpful === undefined) {
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${req.params.reviewId}/helpful`, {}, {
+    axios.put(`${process.env.REVIEWS_URL}/reviews/${req.params.reviewId}/helpful`, {}, {
       headers: {
         'Authorization': process.env.TOKEN
       }
@@ -63,7 +48,7 @@ const markReviewHelpful = (req, res) => {
     if (helpfulClicked.includes(req.params.reviewId)) {
       res.status(304).send('helful already clicked for this review');
     } else {
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${req.params.reviewId}/helpful`, {}, {
+      axios.put(`${process.env.REVIEWS_URL}/reviews/${req.params.reviewId}/helpful`, {}, {
         headers: {
           'Authorization': process.env.TOKEN
         }
@@ -119,32 +104,16 @@ const postNewReview = async (req, res) => {
       data.photos = fileURLs;
     }
 
-    const response = await axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews', data, headers);
+    const response = await axios.post(`${process.env.REVIEWS_URL}/reviews`, data, headers);
     res.sendStatus(201);
   } catch (error) {
     res.send(error);
   }
 };
 
-const getProductName = async (req, res) => {
-  const headers = {
-    headers: {
-      Authorization: process.env.TOKEN
-    }
-  };
-  try {
-    const productData = await axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.params.productId}`, headers);
-    res.send(productData.data.name);
-  } catch (err) {
-    res.send(err);
-  }
-};
-
 module.exports = {
-  getSortedReviews,
   getReviews,
   reportReview,
   markReviewHelpful,
   postNewReview,
-  getProductName
 };

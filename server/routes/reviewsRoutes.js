@@ -7,11 +7,7 @@ const multer = require('multer');
 
 const upload = multer();
 
-reviewsRouter.get('/name/:productId', compression(), reviewsController.getProductName);
-
-reviewsRouter.get('/:productId/:sortMethod', compression(), reviewsController.getSortedReviews);
-
-reviewsRouter.get('/:productId/', compression(), reviewsController.getReviews);
+reviewsRouter.get('/:productId/:sortMethod', compression(), reviewsController.getReviews);
 
 reviewsRouter.put('/:reviewId/report', reviewsController.reportReview);
 

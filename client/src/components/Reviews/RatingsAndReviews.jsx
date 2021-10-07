@@ -24,7 +24,7 @@ class RatingsAndReviews extends React.Component {
       displayedReviewsCount: 2,
       filterReviews: [0, 0, 0, 0, 0],
       imageURL: '',
-      currentSortMethod: 'relevence',
+      currentSortMethod: 'relevance',
       displayForm: false
     };
 
@@ -42,7 +42,7 @@ class RatingsAndReviews extends React.Component {
   }
 
   componentDidMount () {
-    this.getReviewData('relevence');
+    this.getReviewData('relevance');
   }
 
   getReviewsToDisplay(filtered) {
@@ -67,13 +67,12 @@ class RatingsAndReviews extends React.Component {
 
   async getReviewData (sortMethod) {
     const reviews = await API.getProductReviews(this.props.productId, sortMethod);
-    const reviewsMeta = await API.getProductReviewsMeta(this.props.productId);
-    const productName = await API.getProductName(this.props.productId);
+
     this.setState({
       currentProductReviews: reviews.data.results,
-      currentProductMeta: reviewsMeta,
+      currentProductMeta: reviews.data.meta,
       currentSortMethod: sortMethod,
-      currentProductName: productName.data
+      currentProductName: reviews.data.productName
     });
   }
 

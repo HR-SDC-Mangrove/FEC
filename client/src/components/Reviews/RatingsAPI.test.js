@@ -16,19 +16,6 @@ describe('API Utilities', () => {
     done();
   });
 
-  it('should return axios response when invoking getProductReviewsMeta', done => {
-    const reviews = {reviews: []};
-    axios.get.mockResolvedValue(reviews);
-
-    API.getProductReviewsMeta('id')
-      .then(response => {
-        expect(response).toEqual(reviews.data);
-        expect(axios.get).toHaveBeenCalledWith('/api/reviews/id');
-      });
-    done();
-  });
-
-
   it('should return axios response when invoking sendHelpful', done => {
     const reviews = {reviews: []};
     axios.put.mockResolvedValue(reviews);

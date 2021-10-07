@@ -40,20 +40,18 @@ class ProductOverview extends React.Component {
 
     await API.getProductAndStyles(this.props.productId)
       .then(response => {
-        let defaultStyle = response[1].results.find(result => result['default'] === true);
         this.setState({
-          product: response[0],
-          productStyles: response[1],
-          selectedStyle: defaultStyle,
+          product: response,
+          productStyles: response.styles,
+          selectedStyle: response.styles.results[0],
           selectedSku: null,
-          images: defaultStyle.photos,
-          currentImageUrl: defaultStyle.photos[0].url,
+          images: response.styles.results[0].photos,
+          currentImageUrl: response.styles.results[0].photos[0].url,
         });
       })
       .catch(err=> {
         console.log(err);
       });
-
     // await API.getReviews(47421)
     //   .then(response => {
     //     this.setState({

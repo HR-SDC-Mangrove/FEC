@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 // const getProductAndStyles = (req, res) => {
-//   axios.get(`http://localhost:3000/products/product_id=${req.params.productId}`)
+//   axios.get(`http://localhost:3101/products/product_id=${req.params.productId}`)
 //     .then((response) => {
 
 //       res.json(response.data);

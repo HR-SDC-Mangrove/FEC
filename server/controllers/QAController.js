@@ -4,16 +4,20 @@ const imgbbUploader = require('imgbb-uploader');
 const multer = require('multer');
 const upload = multer();
 
+const baseUrl = 'localhost:8888';
+
 const getQuestions = (req, res) => {
   let num = req.params.productId;
 
-  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${num}&page=1&count=100`;
+  //let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${num}&page=1&count=100`;
+  let url = `${baseUrl}/qa/questions?product_id=${num}&page=1&count=100`;
 
-  axios.get(url, {
-    headers: {
-      Authorization: process.env.TOKEN
-    }
-  })
+  axios
+    .get(url, {
+      headers: {
+        Authorization: process.env.TOKEN,
+      },
+    })
     .then(response => {
       res.json(response.data);
     })
@@ -24,13 +28,15 @@ const getQuestions = (req, res) => {
 
 const postQuestion = (req, res) => {
   let data = req.body.data;
-  let url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions';
+  //let url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions';
+  let url = `${baseUrl}/qa/questions`;
 
-  axios.post(url, data, {
-    headers: {
-      Authorization: process.env.TOKEN
-    }
-  })
+  axios
+    .post(url, data, {
+      headers: {
+        Authorization: process.env.TOKEN,
+      },
+    })
     .then(response => {
       res.send(response.data);
     })
@@ -41,13 +47,19 @@ const postQuestion = (req, res) => {
 
 const markAnswerHelpful = (req, res) => {
   let answerId = req.body.answerId;
-  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/answers/${answerId}/helpful`;
+  //let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/answers/${answerId}/helpful`;
+  let url = `${baseUrl}/qa/answers/${answerId}/helpful`;
 
-  axios.put(url, {}, {
-    headers: {
-      Authorization: process.env.TOKEN
-    }
-  })
+  axios
+    .put(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: process.env.TOKEN,
+        },
+      }
+    )
     .then(response => {
       res.send(response.data);
     })
@@ -58,13 +70,19 @@ const markAnswerHelpful = (req, res) => {
 
 const markQuestionHelpful = (req, res) => {
   let questionId = req.body.questionId;
-  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${questionId}/helpful`;
+  // let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${questionId}/helpful`;
+  let url = `${baseUrl}/qa/questions/${questionId}/helpful`;
 
-  axios.put(url, {}, {
-    headers: {
-      Authorization: process.env.TOKEN
-    }
-  })
+  axios
+    .put(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: process.env.TOKEN,
+        },
+      }
+    )
     .then(response => {
       res.send(response.data);
     })
@@ -75,13 +93,19 @@ const markQuestionHelpful = (req, res) => {
 
 const reportQuestion = (req, res) => {
   let questionId = req.body.questionId;
-  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${questionId}/report`;
+  // let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${questionId}/report`;
+  let url = `${baseUrl}/qa/questions/${questionId}/report`;
 
-  axios.put(url, {}, {
-    headers: {
-      Authorization: process.env.TOKEN
-    }
-  })
+  axios
+    .put(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: process.env.TOKEN,
+        },
+      }
+    )
     .then(response => {
       res.send(response.data);
     })
@@ -92,13 +116,19 @@ const reportQuestion = (req, res) => {
 
 const reportAnswer = (req, res) => {
   let answerId = req.body.answerId;
-  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/answers/${answerId}/report`;
+  // let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/answers/${answerId}/report`;
+  let url = `${baseUrl}/qa/answers/${answerId}/report`;
 
-  axios.put(url, {}, {
-    headers: {
-      Authorization: process.env.TOKEN
-    }
-  })
+  axios
+    .put(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: process.env.TOKEN,
+        },
+      }
+    )
     .then(response => {
       res.send(response.data);
     })
@@ -110,12 +140,13 @@ const reportAnswer = (req, res) => {
 const postAnswer = async (req, res) => {
   try {
     let questionId = req.body.questionId;
-    let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${questionId}/answers`;
+    // let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${questionId}/answers`;
+    let url = `${baseUrl}/qa/questions/${questionId}/answers`;
 
     let data = {
       body: req.body.body,
       name: req.body.name,
-      email: req.body.email
+      email: req.body.email,
     };
 
     if (req.files.length) {
@@ -124,7 +155,7 @@ const postAnswer = async (req, res) => {
           let base64string = file.buffer.toString('base64');
           let options = {
             apiKey: process.env.IMG_API_KEY,
-            base64string
+            base64string,
           };
 
           let url = await imgbbUploader(options);
@@ -136,11 +167,12 @@ const postAnswer = async (req, res) => {
       data.photos = fileUrls;
     }
 
-    axios.post(url, data, {
-      headers: {
-        Authorization: process.env.TOKEN
-      }
-    })
+    axios
+      .post(url, data, {
+        headers: {
+          Authorization: process.env.TOKEN,
+        },
+      })
       .then(response => {
         res.send(response.data);
       })
@@ -154,6 +186,7 @@ const postAnswer = async (req, res) => {
 
 const getProductName = (req, res) => {
   let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.params.productId}`;
+  //let url = `${baseUrl}/qa/answers/${answerId}/helpful`;
 
   // axios.get(url, {
   //   headers: {
@@ -176,5 +209,5 @@ module.exports = {
   reportQuestion,
   reportAnswer,
   postAnswer,
-  getProductName
+  getProductName,
 };

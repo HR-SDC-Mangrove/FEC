@@ -19,10 +19,6 @@ const getReviews = (req, res) => {
 };
 
 const getReviewsMeta = (req, res) => {
-  console.log('----__#*%@_#)*%@)_#*%_@#)*%_@#)*%_@#)%*_@#)*%_@#)%*ENTERED META!!!!!!');
-
-  console.log('IDIDIDIDIDIDID', req.params.productId);
-
   axios.get(`${process.env.REVIEWS_URL}/reviews/meta?product_id=${req.params.productId}`, {
     headers: {
       'Authorization': process.env.TOKEN

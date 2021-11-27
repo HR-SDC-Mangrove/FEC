@@ -74,7 +74,6 @@ class QuestionsAndAnswers extends React.Component {
   getQuestions(cb, reset) {
     API.getQuestions(this.state.currProductId)
       .then(response => {
-        console.log('QA TEST', response);
         const questions = response.data.results;
 
         if (cb) {

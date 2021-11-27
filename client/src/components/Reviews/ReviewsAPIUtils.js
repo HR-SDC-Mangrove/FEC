@@ -39,6 +39,6 @@ export default {
   },
 
   getProductName: async (productId) => {
-    return await axios.get(`/api/reviews/name/${productId}`);
+    return await axios.get(`/api/questions/productName/${productId}`);
   }
 };

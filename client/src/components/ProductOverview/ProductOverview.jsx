@@ -52,15 +52,6 @@ class ProductOverview extends React.Component {
       .catch(err=> {
         console.log(err);
       });
-    // await API.getReviews(47421)
-    //   .then(response => {
-    //     this.setState({
-    //       reviews: response,
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.error(err);
-    //   });
   }
 
   onChange(key, val) {

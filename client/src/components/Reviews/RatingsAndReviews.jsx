@@ -67,16 +67,14 @@ class RatingsAndReviews extends React.Component {
 
   async getReviewData (sortMethod) {
     const reviews = await API.getProductReviews(this.props.productId, sortMethod);
-
     const meta = await API.getProductMeta(this.props.productId);
-
-    console.log('REVIEWS TEST', reviews, '----&&&&&----', meta);
+    const productName = await API.getProductName(this.props.productId);
 
     this.setState({
       currentProductReviews: reviews.data.results,
-      currentProductMeta: reviews.data.meta,
+      currentProductMeta: meta.data,
       currentSortMethod: sortMethod,
-      currentProductName: reviews.data.productName
+      currentProductName: productName.data.name
     });
   }
 

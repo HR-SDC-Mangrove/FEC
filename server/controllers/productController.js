@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const getProduct = (req, res) => {
   axios
-    .get(`${process.env.OVERVIEW_URL}/products/?product_id=${req.params.productId}`, {
+    .get(`${process.env.OVERVIEW_URL}/products/${req.params.productId}`, {
       headers: {
         Authorization: process.env.TOKEN,
       },
@@ -17,7 +17,7 @@ const getProduct = (req, res) => {
 
 const getProductStyles = (req, res) => {
   axios
-    .get(`${process.env.OVERVIEW_URL}/id=${req.params.productId}/styles`, {
+    .get(`${process.env.OVERVIEW_URL}/products/${req.params.productId}/styles`, {
       headers: {
         Authorization: process.env.TOKEN,
       },

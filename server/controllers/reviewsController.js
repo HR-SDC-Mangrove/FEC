@@ -5,7 +5,25 @@ const multer = require('multer');
 const upload = multer();
 
 const getReviews = (req, res) => {
-  axios.get(`${process.env.REVIEWS_URL}/reviews/product/${req.params.productId}?sort=${req.params.sortMethod}&count=50`, {
+  axios.get(`${process.env.REVIEWS_URL}/reviews/?product_id=${req.params.productId}&sort=${req.params.sortMethod}&count=50`, {
+    headers: {
+      'Authorization': process.env.TOKEN
+    }
+  })
+    .then(response => {
+      res.send(response.data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+const getReviewsMeta = (req, res) => {
+  console.log('----__#*%@_#)*%@)_#*%_@#)*%_@#)*%_@#)%*_@#)*%_@#)%*ENTERED META!!!!!!');
+
+  console.log('IDIDIDIDIDIDID', req.params.productId);
+
+  axios.get(`${process.env.REVIEWS_URL}/reviews/meta?product_id=${req.params.productId}`, {
     headers: {
       'Authorization': process.env.TOKEN
     }
@@ -116,4 +134,5 @@ module.exports = {
   reportReview,
   markReviewHelpful,
   postNewReview,
+  getReviewsMeta
 };
